@@ -1,0 +1,52 @@
+import random
+
+bal = 20
+choice = "anus poilu"
+
+dict = {
+    1 : "cherry",
+    2 : "7",
+    3 : "gold bar",
+    4 : "lemon",
+    5 : "strawberry"
+}
+
+def gambling():
+
+    global bal
+    bal = bal - 1
+    numroll = [random.randint(1, 5), random.randint(1, 5), random.randint(1, 5)]
+    print(numroll)
+
+    roll = [dict[x] for x in numroll if x in dict]
+    print(roll)
+
+    if numroll[0] == numroll[1] and numroll[1] == numroll[2]:
+        bal = bal + 20
+        print("""
+        ------------------
+        JACKPOT!!!!!!!!!!!
+             KATCHING    
+        ------------------
+        
+        """)
+
+
+
+while choice != "stop" and bal > 0:
+
+    choice = input ("roll, bal, stop\n")
+
+    if choice == "bal":
+        print(bal)
+
+    if choice == "roll":
+        gambling()
+
+
+if bal == 0:
+    print("Félicitations vous êtes pauvre")
+
+else:
+    print("Félicitation vous avez: " + str(bal) + " dollars")
+

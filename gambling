@@ -1,52 +1,108 @@
 import random
-
+menu = ""
 bal = 20
-choice = "anus poilu"
 
-dict = {
-    1 : "cherry",
-    2 : "7",
-    3 : "gold bar",
-    4 : "lemon",
-    5 : "strawberry"
-}
+def exit():
+    if bal == 0:
+        print("Félicitations vous êtes pauvre")
 
-def gambling():
+    else:
+        print("Félicitation vous avez: " + str(bal) + " dollars")
 
+
+
+def roulette():
+    x = 0
+    choice = "anus poilu"
     global bal
-    bal = bal - 1
-    numroll = [random.randint(1, 5), random.randint(1, 5), random.randint(1, 5)]
-    print(numroll)
-
-    roll = [dict[x] for x in numroll if x in dict]
-    print(roll)
-
-    if numroll[0] == numroll[1] and numroll[1] == numroll[2]:
-        bal = bal + 20
-        print("""
-        ------------------
-        JACKPOT!!!!!!!!!!!
-             KATCHING    
-        ------------------
-        
-        """)
+    command = ["roll", "bal", "info", "stop"]
+    dict = {
+        1: "cherry",
+        2: "7",
+        3: "gold bar",
+        4: "lemon",
+        5: "strawberry"
+    }
 
 
+    while choice != "stop" and bal > 0:
 
-while choice != "stop" and bal > 0:
+        choice = input("commandes\n" + str(command) + "\n")
 
-    choice = input ("roll, bal, stop\n")
+        if choice == "bal":
+            print(bal)
 
-    if choice == "bal":
-        print(bal)
+        if choice == "roll":
+            bal = bal - 1
+            numroll = [random.randint(1, 5), random.randint(1, 5) ,random.randint(1, 5) ]
+            # print(numroll)
 
-    if choice == "roll":
-        gambling()
+            roll = [dict[x] for x in numroll if x in dict]
+            print(roll)
+
+            if numroll[0] == numroll[1] and numroll[1] == numroll[2]:
+                bal = bal + 20
+                print("""
+                ------------------
+                JACKPOT!!!!!!!!!!!
+                     KATCHING    
+                ------------------
+
+                """)
+
+        if choice == "info" and x == 0:
+            info = input("Donnez vos informations bancaires pour plus de crédits\n")
+            command.pop(2)
+            bal = bal + 50
+            x += 1
+    exit()
+
+def pile_ou_face():
+    global bal
+    choice = ""
+    command = ["flip", "bal", "stop"]
+    bet = 0
 
 
-if bal == 0:
-    print("Félicitations vous êtes pauvre")
 
-else:
-    print("Félicitation vous avez: " + str(bal) + " dollars")
+    while choice != "stop" and bal > 0:
+        choice = input("commandes\n" + str(command) + "\n")
+
+        if choice == "bal":
+            print(bal)
+
+        if choice == "flip":
+            #préparation au tirage
+            bet = input("entrez votre mise\n")
+            bal = bal - int(bet)
+            pièce = input ("Sur quel côté la pièce va tomber?\n")
+            result = random.randint(1,2)
+
+            #Résultat tirage
+            if result == 1:
+                print("face")
+            if result == 2:
+                print("pile")
+
+            #Remise de prix ou non
+            if result == 1 and pièce == "face" or result == 2 and pièce == "pile":
+                bal = 2 * int(bet) + bal
+                print("Félicitations vous avez gagné " + str(2 * int(bet)) + " dollars")
+            else:
+                print(":'(")
+
+
+    exit()
+
+while menu != "quit":
+    menu = input("""
+              Menu
+
+| roulette | pile_ou_face | quit |
+
+""")
+    if menu == "roulette":
+       roulette()
+    if menu == "pile_ou_face":
+        pile_ou_face()
 

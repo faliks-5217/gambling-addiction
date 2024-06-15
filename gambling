@@ -74,9 +74,14 @@ def pile_ou_face():
         if choice == "flip":
             #préparation au tirage
             bet = input("entrez votre mise\n")
+            if type(bet) != int:
+                print("mettre une quantité valide")
+                pile_ou_face()
+
             bal = bal - int(bet)
             pièce = input ("Sur quel côté la pièce va tomber?\n")
             result = random.randint(1,2)
+
 
             #Résultat tirage
             if result == 1:
